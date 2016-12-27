@@ -1,22 +1,48 @@
-package com.codizer.model;
+package com.codizer.entity;
 
-public class ProductModel {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="product")
+public class Product {
+
+	@Id
+	@GeneratedValue
+	@Column(name = "productId")
 	private int productId;
-	private String productName;
-	private String productCategory;
-	private String productDescription;
-	private double productPrice;
-	private String productCondition;
-	private String productStatus;
-	private int unitInStock;
-	private String productManufacturer;
 	
-	public ProductModel() {}
+	@Column(name = "productName")
+	private String productName;
+	
+	@Column(name = "productCategory")
+	private String productCategory;
+	
+	@Column(name = "productDescription")
+	private String productDescription;
+	
+	@Column(name = "productPrice")
+	private double productPrice;
+	
+	@Column(name = "productCondition")
+	private String productCondition;
+	
+	@Column(name = "productStatus")
+	private String productStatus;
+	
+	@Column(name = "unitInStock")
+	private int unitInStock;
+	
+	@Column(name = "productManufacturer")
+	private String productManufacturer;
 
-	public ProductModel(int productId, String productName, String productCategory, String productDescription,
-			double productPrice, String productCondition, String productStatus, int unitInStock,
-			String productManufacturer) {
+	public Product() {}
+	
+	public Product(int productId, String productName, String productCategory, String productDescription, double productPrice,
+			String productCondition, String productStatus, int unitInStock, String productManufacturer) {
 		super();
 		this.productId = productId;
 		this.productName = productName;
@@ -103,7 +129,7 @@ public class ProductModel {
 
 	@Override
 	public String toString() {
-		return "ProductModel [productId=" + productId + ", productName=" + productName + ", productCategory="
+		return "Product [productId=" + productId + ", productName=" + productName + ", productCategory="
 				+ productCategory + ", productDescription=" + productDescription + ", productPrice=" + productPrice
 				+ ", productCondition=" + productCondition + ", productStatus=" + productStatus + ", unitInStock="
 				+ unitInStock + ", productManufacturer=" + productManufacturer + "]";

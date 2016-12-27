@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" href="/css/panel.css" th:href="@{/css/panel.css}"/>
+
+    <style>
+        .active-menu {color: #000; border-bottom: solid 2px #2856B5; }
+        .img-preview-mini {
+            width: 100px;
+            height: 110px;
+            background-color: #E6E6E6;
+            background-size: cover;
+            background-position: center center;
+            border-radius: 4px;
+        }
+
+        #admins{
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .dropdown-menu li {
+        	width: 100% !important;
+        	padding: 0 !important;
+        	margin: 0 !important;
+        }
+        
+        .dropdown-menu li a {
+        	width: 100% !important;
+        	padding-top: 10px;
+        	padding-left: 20px !important;
+        	padding-bottom: 10px;
+        	border-bottom: 0px !important;
+        }
+
+    </style>
+    <title>Admin - Product Inventory</title>
+</head>
+<body>
+
+<!-- Fixed navbar -->
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Codizer</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="{{ url('/home') }}">Dashboard</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#" th:href="@{/}" target="_blank">Ver tienda</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hola {{ Auth::user()->name }} <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Cuenta</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="{{ url('/logout') }}">Cerrar sesión</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+
+<header>
+    <div>
+        <ul>
+            <li><a href="{{ route('admin.slider') }}">Slider</a></li>
+            <li><a href="{{ route('admin.items') }}">Productos</a></li>
+            <li><a href="{{ route('admin.compras') }}">Compras</a></li>
+            <li><a href="{{ route('admin.proveedores') }}">Proveedores</a></li>
+            <li><a href="{{ route('admin.categorias') }}">Categorías</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+                    Usuarios <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li id="admins"><a href="{{ route('admin.show') }}">Administradores</a></li>
+                    <li><a href="{{ route('coustumer.show') }}">Clientes</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</header>
+
+<div class="container panel-container">
+
+    <div class="page-header">
+        <h1>Productos
+            <small>Panel</small>
+        </h1>
+    </div>
+
+    <div class="container-top-menu-panel">
+        <div class="btn-group" role="group" aria-label="...">
+            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalNewCompra">Añadir compra</button>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modalNewProduct">Nuevo</button>
+        </div>
+    </div>
+
+    @include('admin.partials.messages')
+
+    <div class="row">
+
+        <div class="col-sm-12 col-md-12">
+            <div class="table-responsive">
+                <table class="table table-striped">
+
+                    <thead>
+                    <tr>
+                        <th>Foto</th>
+                        <th>Producto</th>
+                        <th>Detalles</th>
+                        <th>Opciones</th>
+                    </tr>
+                    </thead>
+                    <tbody id="list-products">
+
+                    @foreach($productos as $producto)
+                    <tr>
+                        <td width="60">
+                            <div class="img-preview-mini" style="background-image: url('{{ asset('media/photo-items/' . $producto->img_name) }}')">
+
+                            </div>
+                        </td>
+                        <td>
+
+                            <ul style="list-style: none; padding: 0;">
+                                <li><h4>{{ $producto->name }}</h4></li>
+                                <li>{{ $producto->desc }}</li>
+                                <li><kbd>{{ $producto->quantity }}pz.</kbd> <code>${{ $producto->price }}</code></li>
+                                <li>Oferta: -{{ $producto->offert }}%</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul style="list-style: none; padding: 0;">
+                                <li><h5>Categoría</h5></li>
+                                <li>{{ $producto->name_category }}</li>
+                                <li><h5>Proveedor</h5></li>
+                                <li>{{ $producto->nom_empresa }}</li>
+
+                                @if($producto->available == 1)
+                                    <li><kbd>Ver en tienda</kbd></li>
+                                @else
+                                    <li><code>No ver en tienda</code></li>
+                                @endif
+                            </ul>
+                        </td>
+                        <td width="160">
+
+                            @if($producto->available == 1)
+                                <div class="btn-group" role="group" aria-label="...">
+                                    <a href="{{ route('store.show.item', [$producto->producto_id, \Illuminate\Support\Str::slug($producto->name)]) }}" target="_blank" class="btn btn-default">Ver</a>
+                                    <button type="button" class="btn btn-default btn-item-show" data-product="{{ $producto->producto_id }}"  data-toggle="modal" data-target="#modalUpdateProduct">Editar</button>
+                                </div>
+                            @else
+                                <div class="btn-group" role="group" aria-label="...">
+                                    <button type="button" class="btn btn-default btn-item-show" data-product="{{ $producto->producto_id }}"  data-toggle="modal" data-target="#modalUpdateProduct">Editar</button>
+                                </div>
+                            @endif
+
+
+                        </td>
+                    </tr>
+                    @endforeach
+
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-12 col-md-12">
+        <div class="bs-example" data-example-id="media-alignment">
+            <div class="media">
+                <div class="media-left media-middle">
+                    <a href="#0">
+                        <img class="media-object" data-src="holder.js/64x64" alt="64x64"
+                             src="/media/icon/help.png" th:src="@{/media/icon/help.png}" data-holder-rendered="true" width="64" height="64" />
+                    </a>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading">Ayuda</h4>
+                    <p>Gestiona los productos de tu tienda, recuerda que los proveedores y categorías se gestionan en sus respectivas vistas.</p>
+                </div>
+            </div>
+        </div>
+
+        </div>
+    </div>
+</div>
+
+<footer class="footer" style="margin-top: 16px;">
+    <div class="container">
+        <p class="text-muted">Codizer prototype 2016.</p>
+    </div>
+</footer>
+
+<script src="/js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
+<script src="/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+<script>$('header div ul li:nth-child(2) a').addClass('active-menu');</script>
+</body>
+</html>
