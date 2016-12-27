@@ -1,0 +1,17 @@
+spring:
+  thymeleaf:
+    cache: false # Do not use Thymeleaf cache
+    
+  datasource: # Config Data Base connection
+    url: jdbc:mysql://127.0.0.1:33060/music_store_spring?useSSL=true
+    username: homestead
+    password: secret
+    
+  jpa:
+    show-sql: true      # Show SQL into console
+    hibernate:
+      ddl-auto: update  # Mapping entities tables into Data Base and Update if them do not exists
+      naming:
+        strategy: org.hibernate.cfg.ImprovedNamingStrategy  # Queries dialect
+    properties:
+      dialect: org.hibernate.dialect.MySQL5Dialect          # Queries dialect
