@@ -3,9 +3,9 @@ spring:
     cache: false # Do not use Thymeleaf cache
     
   datasource: # Config Data Base connection
-    url: jdbc:mysql://127.0.0.1:33060/music_store_spring?useSSL=true
-    username: homestead
-    password: secret
+    url: jdbc:mysql://localhost:3306/musicstore?useSSL=true
+    username: root
+    password:
     
   jpa:
     show-sql: true      # Show SQL into console

@@ -61,7 +61,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#" th:href="@{/}" target="_blank">Ver tienda</a></li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hola {{ Auth::user()->name }} <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hola Adrián <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#">Cuenta</a></li>
                         <li role="separator" class="divider"></li>
@@ -110,8 +110,6 @@
         </div>
     </div>
 
-    @include('admin.partials.messages')
-
     <div class="row">
 
         <div class="col-sm-12 col-md-12">
@@ -128,53 +126,73 @@
                     </thead>
                     <tbody id="list-products">
 
-                    @foreach($productos as $producto)
                     <tr>
                         <td width="60">
-                            <div class="img-preview-mini" style="background-image: url('{{ asset('media/photo-items/' . $producto->img_name) }}')">
+                            <div class="img-preview-mini" style="background-image: url('media/photo-items/');">
 
                             </div>
                         </td>
                         <td>
 
                             <ul style="list-style: none; padding: 0;">
-                                <li><h4>{{ $producto->name }}</h4></li>
-                                <li>{{ $producto->desc }}</li>
-                                <li><kbd>{{ $producto->quantity }}pz.</kbd> <code>${{ $producto->price }}</code></li>
-                                <li>Oferta: -{{ $producto->offert }}%</li>
+                                <li><h4>Mark</h4></li>
+                                <li>Disco de música</li>
+                                <li><kbd>10pz.</kbd> <code>$100.00 USD</code></li>
+                                <li>Oferta: -5%</li>
                             </ul>
                         </td>
                         <td>
                             <ul style="list-style: none; padding: 0;">
                                 <li><h5>Categoría</h5></li>
-                                <li>{{ $producto->name_category }}</li>
+                                <li>Rock</li>
                                 <li><h5>Proveedor</h5></li>
-                                <li>{{ $producto->nom_empresa }}</li>
-
-                                @if($producto->available == 1)
-                                    <li><kbd>Ver en tienda</kbd></li>
-                                @else
-                                    <li><code>No ver en tienda</code></li>
-                                @endif
+                                <li>Amazing company</li>
+                                <li><kbd>Ver en tienda</kbd></li>
                             </ul>
                         </td>
                         <td width="160">
 
-                            @if($producto->available == 1)
                                 <div class="btn-group" role="group" aria-label="...">
                                     <a href="{{ route('store.show.item', [$producto->producto_id, \Illuminate\Support\Str::slug($producto->name)]) }}" target="_blank" class="btn btn-default">Ver</a>
                                     <button type="button" class="btn btn-default btn-item-show" data-product="{{ $producto->producto_id }}"  data-toggle="modal" data-target="#modalUpdateProduct">Editar</button>
                                 </div>
-                            @else
-                                <div class="btn-group" role="group" aria-label="...">
-                                    <button type="button" class="btn btn-default btn-item-show" data-product="{{ $producto->producto_id }}"  data-toggle="modal" data-target="#modalUpdateProduct">Editar</button>
-                                </div>
-                            @endif
-
 
                         </td>
                     </tr>
-                    @endforeach
+                    <tr>
+                        <td width="60">
+                            <div class="img-preview-mini" style="background-image: url('media/photo-items/');">
+
+                            </div>
+                        </td>
+                        <td>
+
+                            <ul style="list-style: none; padding: 0;">
+                                <li><h4>Mark</h4></li>
+                                <li>Disco de música</li>
+                                <li><kbd>10pz.</kbd> <code>$100.00 USD</code></li>
+                                <li>Oferta: -5%</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul style="list-style: none; padding: 0;">
+                                <li><h5>Categoría</h5></li>
+                                <li>Rock</li>
+                                <li><h5>Proveedor</h5></li>
+                                <li>Amazing company</li>
+                                <li><kbd>Ver en tienda</kbd></li>
+                            </ul>
+                        </td>
+                        <td width="160">
+
+                            <div class="btn-group" role="group" aria-label="...">
+                                <a href="{{ route('store.show.item', [$producto->producto_id, \Illuminate\Support\Str::slug($producto->name)]) }}" target="_blank" class="btn btn-default">Ver</a>
+                                <button type="button" class="btn btn-default btn-item-show" data-product="{{ $producto->producto_id }}"  data-toggle="modal" data-target="#modalUpdateProduct">Editar</button>
+                            </div>
+
+                        </td>
+                    </tr>
+
 
                     </tbody>
 
