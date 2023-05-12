@@ -40,9 +40,9 @@ Actualmente este proyecto no está terminado y posiblemente presente anomalias e
 ## Imagenes del proyecto
 ![Pantalla principal](https://github.com/adrianortiz/MusicStore/blob/master/src/main/resources/static/media/git-hub-img/codizer-music-store-01.png)
 
-![Pantalla Lista productos](https://github.com/adrianortiz/MusicStore/blob/master/src/main/resources/static/media/git-hub-img/codizer-music-store-01.png)
+![Pantalla Lista productos](https://github.com/adrianortiz/MusicStore/blob/master/src/main/resources/static/media/git-hub-img/codizer-music-store-02.png)
 
-![Pantalla Administrador](https://github.com/adrianortiz/MusicStore/blob/master/src/main/resources/static/media/git-hub-img/codizer-music-store-01.png)
+![Pantalla Administrador](https://github.com/adrianortiz/MusicStore/blob/master/src/main/resources/static/media/git-hub-img/codizer-music-store-03.png)
 
 
 ## Spring Framework
